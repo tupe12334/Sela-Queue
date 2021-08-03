@@ -29,11 +29,8 @@ export async function getQueue() {
 
 export async function finish(number: number) {
   try {
-    console.log(number);
     const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/queue/finish?number=${number}`;
-    console.log(url);
     const data = (await axios.put(url)).data;
-
     return true;
   } catch (error) {
     return false;

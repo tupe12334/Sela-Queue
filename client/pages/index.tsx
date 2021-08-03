@@ -35,8 +35,6 @@ export default function Home() {
               onClick={async () => {
                 const done = await finish(queue[0].queue);
                 if (done) {
-                  console.log(done);
-
                   setQueue(queue.splice(1));
                 } else {
                   alert("Problem in update client");
