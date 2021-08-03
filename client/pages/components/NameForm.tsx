@@ -19,7 +19,11 @@ const NameForm = ({ queue, setQueue }) => {
     if (values?.name && errors.name === undefined) {
       setSending(true);
       const data = await addName(values.name);
-      setQueue(queue.concat(data));
+      if (data) {
+        setQueue(queue.concat(data));
+      } else {
+        alert("Problem in add client");
+      }
       setSending(false);
     }
   };

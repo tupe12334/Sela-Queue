@@ -16,7 +16,8 @@ Queue.put("/finish", async (req, res, next) => {
       data: { finish: true },
       where: { queue: number },
     });
-    return updated;
+    console.log(updated);
+    res.json(updated);
   }
 });
 export default Queue;

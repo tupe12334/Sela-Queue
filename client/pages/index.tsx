@@ -2,7 +2,6 @@ import { Button } from "@material-ui/core";
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import styles from "../styles/Home.module.css";
 import { finish, getQueue } from "./api";
 import ClientCell from "./components/ClientCell";
 import NameForm from "./components/NameForm";
@@ -11,18 +10,20 @@ import QueueTable from "./components/queue/QueueTable";
 export default function Home() {
   const [queue, setQueue] = useState<any[]>([]);
   useEffect(() => {
-    console.log(queue);
-    queue.concat;
-    getQueue().then(setQueue);
+    getQueue().then((array) => {
+      if (array) {
+        setQueue(array);
+      }
+    });
   }, []);
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Main page</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main>
         <NameForm queue={queue} setQueue={setQueue} />
         <QueueTable queue={queue} />
         {queue[0] && (
@@ -31,9 +32,15 @@ export default function Home() {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                finish(queue[0].queue);
-                setQueue(queue.splice(1));
+              onClick={async () => {
+                const done = await finish(queue[0].queue);
+                if (done) {
+                  console.log(done);
+
+                  setQueue(queue.splice(1));
+                } else {
+                  alert("Problem in update client");
+                }
               }}
             >
               Call Next
@@ -41,7 +48,7 @@ export default function Home() {
           </>
         )}
       </main>
-      <footer className={styles.footer}></footer>
+      {/* <footer></footer> */}
     </div>
   );
 }

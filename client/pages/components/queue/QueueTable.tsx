@@ -9,11 +9,16 @@ const QueueTable = ({ queue }) => {
     <TableContainer component={Paper}>
       <Table>
         <QueueTableHead />
-        <TableBody>
-          {queue.map((client: any) => (
-            <ClientCell client={client} key={client.queue} />
-          ))}
-        </TableBody>
+        {queue.length > 0 ? (
+          <TableBody>
+            {queue.map(
+              (client: any, i: number) =>
+                i > 0 && <ClientCell client={client} key={client.queue} />
+            )}
+          </TableBody>
+        ) : (
+          <span>No client in system</span>
+        )}
       </Table>
     </TableContainer>
   );

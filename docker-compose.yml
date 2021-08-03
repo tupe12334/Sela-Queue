@@ -27,6 +27,3 @@ services:
       - 5000:5000
     depends_on:
       - db
-#   client:
-#     build:
-#       context: ./client
