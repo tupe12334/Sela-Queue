@@ -17,3 +17,16 @@ services:
       - 8081:8080
     depends_on:
       - db
+  server:
+    build:
+      context: ./server
+    restart: always
+    environment:
+      NODE_ENV: prodction
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+#   client:
+#     build:
+#       context: ./client

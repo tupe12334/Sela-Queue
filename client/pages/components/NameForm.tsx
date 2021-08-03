@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { addName } from "../api";
 import useWindowSize from "../hooks/useWindowSize";
 
-const NameForm = () => {
+//@ts-ignore
+const NameForm = ({ queue, setQueue }) => {
   const [sending, setSending] = useState(false);
   const size = useWindowSize();
   const {
@@ -18,6 +19,7 @@ const NameForm = () => {
     if (values?.name && errors.name === undefined) {
       setSending(true);
       const data = await addName(values.name);
+      setQueue(queue.concat(data));
       setSending(false);
     }
   };
